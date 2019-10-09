@@ -5,7 +5,7 @@ import "os"
 func main() {
 	args := os.Args
 
-	if len(args) > 1 {
+	if len(args) == 1 {
 		cmd := args[1]
 
 		switch cmd {
@@ -16,6 +16,8 @@ func main() {
 		default:
 			printHelp()
 		}
+	} else if len(args) > 1 {
+		handlePlayerOptions(args)
 	} else {
 		printHelp()
 	}
