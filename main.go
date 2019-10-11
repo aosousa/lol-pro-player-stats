@@ -6,6 +6,8 @@ func main() {
 	args := os.Args
 
 	if len(args) == 1 {
+		printHelp()
+	} else if len(args) > 1 {
 		cmd := args[1]
 
 		switch cmd {
@@ -14,11 +16,7 @@ func main() {
 		case "-v", "--version":
 			printVersion()
 		default:
-			printHelp()
+			handlePlayerOptions(args)
 		}
-	} else if len(args) > 1 {
-		handlePlayerOptions(args)
-	} else {
-		printHelp()
 	}
 }
