@@ -18,6 +18,7 @@ func printHelp() {
 	fmt.Println("Available commands:")
 	fmt.Println("* -h | --help\t Prints the list of available commands")
 	fmt.Println("* -v | --version Prints the version of the application")
+	fmt.Println("* PLAYER CODE SPLIT YEAR Prints the statistics of a player in a given split of a given year (e.g. lol-pro-player-stats.exe Perkz LEC Summer 2019)")
 }
 
 // Prints the current version of the application
@@ -35,7 +36,6 @@ func handlePlayerOptions(args []string) {
 	)
 
 	player, leagueCode, split, year = args[1], args[2], args[3], args[4]
-	// queryURL = fmt.Sprintf("%s/Special:RunQuery/MatchHistoryPlayer?MHP[preload]=Player&MHP[tournament]=%s %s %s&MHP[link]=%s&pfRunQueryFormName=MatchHistoryPlayer", baseLeaguepediaURL, leagueCode, year, split, player)
 	queryURL = baseLeaguepediaURL + "/Special:RunQuery/MatchHistoryPlayer?MHP%5Bpreload%5D=Player&MHP%5Btournament%5D=" + leagueCode + "%20" + year + "%20" + split + "&MHP%5Bspl%5D=yes&MHP%5Blink%5D=" + player + "&pfRunQueryFormName=MatchHistoryPlayer"
 	resp, err := soup.Get(queryURL)
 	if err != nil {
@@ -68,10 +68,13 @@ func printPlayerTable(player, leagueCode, split, year, document string) {
 		if row.Children()[0].NodeValue == "td" {
 			championName := row.Children()[0].Children()[1].NodeValue
 			championNameDistance := calculateStringDistance(15, championName)
+
 			games := row.Children()[1].Children()[0].Text()
 			gamesDistance := calculateStringDistance(1, games)
+
 			wins := row.Children()[2].Text()
 			losses := row.Children()[3].Text()
+
 			winratio := row.Children()[4].Text()
 			winratioDistance := calculateStringDistance(4, winratio)
 			kda := row.Children()[8].Text()
