@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/anaskhan96/soup"
+	utils "github.com/aosousa/golang-utils"
 )
 
 const (
@@ -39,7 +39,7 @@ func handlePlayerOptions(args []string) {
 	queryURL = baseLeaguepediaURL + "/Special:RunQuery/MatchHistoryPlayer?MHP%5Bpreload%5D=Player&MHP%5Btournament%5D=" + leagueCode + "%20" + year + "%20" + split + "&MHP%5Bspl%5D=yes&MHP%5Blink%5D=" + player + "&pfRunQueryFormName=MatchHistoryPlayer"
 	resp, err := soup.Get(queryURL)
 	if err != nil {
-		handleError(err)
+		utils.HandleError(err)
 	}
 
 	printPlayerTable(player, leagueCode, split, year, resp)
@@ -57,7 +57,6 @@ func printPlayerTable(player, leagueCode, split, year, document string) {
 	fmt.Printf(" %s %s %s %s Stats\n\n", player, leagueCode, split, year)
 	fmt.Println(" Champion \t|  G  |  W  |  L  | WR    | KDA")
 
-	soup.SetDebug(true)
 	doc := soup.HTMLParse(document)
 	championTable := doc.Find("table", "class", "spstats")
 	championTableBody := championTable.Find("tbody")
@@ -84,6 +83,7 @@ func printPlayerTable(player, leagueCode, split, year, document string) {
 	}
 }
 
+// Calculate space distance required to match a row with longer data (e.g. double digit games)
 func calculateStringDistance(baseDistance int, name string) string {
 	stringDistanceLen := baseDistance - len(name)
 	stringDistance := ""
@@ -92,9 +92,4 @@ func calculateStringDistance(baseDistance int, name string) string {
 	}
 
 	return stringDistance
-}
-
-func handleError(err error) {
-	fmt.Printf("%s", err)
-	os.Exit(1)
 }
