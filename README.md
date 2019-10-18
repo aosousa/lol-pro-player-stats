@@ -5,6 +5,8 @@
 ### Installation
 You need to install Golang on your machine. If it's not installed, be sure to [install Golang](https://golang.org/doc/install).
 
+### Usage
+
 Available league codes and splits
 
 | League Code | Description | Splits |
@@ -23,7 +25,6 @@ Available league codes and splits
 | TCL | Turkish Champions League | Winter, Summer |
 | VCS | Vietnam Championship Series | Spring, Summer |
 
-### Usage
 ```
 lol-pro-player-stats.exe [-h | --help | -v | --version]
 ```
