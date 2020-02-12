@@ -82,14 +82,3 @@ func printPlayerTable(player, leagueCode, split, year, document string) {
 		}
 	}
 }
-
-// Calculate space distance required to match a row with longer data (e.g. double digit games)
-// func calculateStringDistance(baseDistance int, name string) string {
-// 	stringDistanceLen := baseDistance - len(name)
-// 	stringDistance := ""
-// 	for i := 0; i <= stringDistanceLen; i++ {
-// 		stringDistance = stringDistance + " "
-// 	}
-
-// 	return stringDistance
-// }
