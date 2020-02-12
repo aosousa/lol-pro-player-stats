@@ -66,16 +66,16 @@ func printPlayerTable(player, leagueCode, split, year, document string) {
 		// only want TD elements inside tbody
 		if row.Children()[0].NodeValue == "td" {
 			championName := row.Children()[0].Children()[1].NodeValue
-			championNameDistance := calculateStringDistance(15, championName)
+			championNameDistance := utils.CalculateStringDistance(15, championName)
 
 			games := row.Children()[1].Children()[0].Text()
-			gamesDistance := calculateStringDistance(1, games)
+			gamesDistance := utils.CalculateStringDistance(1, games)
 
 			wins := row.Children()[2].Text()
 			losses := row.Children()[3].Text()
 
 			winratio := row.Children()[4].Text()
-			winratioDistance := calculateStringDistance(4, winratio)
+			winratioDistance := utils.CalculateStringDistance(4, winratio)
 			kda := row.Children()[8].Text()
 
 			fmt.Printf("%s %s|  %s %s|  %s  |  %s  | %s %s| %s\n", championName, championNameDistance, games, gamesDistance, wins, losses, winratio, winratioDistance, kda)
@@ -84,12 +84,12 @@ func printPlayerTable(player, leagueCode, split, year, document string) {
 }
 
 // Calculate space distance required to match a row with longer data (e.g. double digit games)
-func calculateStringDistance(baseDistance int, name string) string {
-	stringDistanceLen := baseDistance - len(name)
-	stringDistance := ""
-	for i := 0; i <= stringDistanceLen; i++ {
-		stringDistance = stringDistance + " "
-	}
+// func calculateStringDistance(baseDistance int, name string) string {
+// 	stringDistanceLen := baseDistance - len(name)
+// 	stringDistance := ""
+// 	for i := 0; i <= stringDistanceLen; i++ {
+// 		stringDistance = stringDistance + " "
+// 	}
 
-	return stringDistance
-}
+// 	return stringDistance
+// }
